@@ -19,5 +19,7 @@ jobs:
       run: |
         cd .github/scripts/lut_validator
         npm install
+        export CHANGED=$(git diff --name-only origin/master)
+        echo "::set-env name=CHANGED::$CHANGED"
     - name: Validate LUT CSV files
-      run: node .github/scripts/lut_validator/validate.js
+      run: node .github/scripts/lut_validator/validate.js $CHANGED
